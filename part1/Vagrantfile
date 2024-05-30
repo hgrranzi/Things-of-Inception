@@ -3,30 +3,47 @@
 
 Vagrant.configure("2") do |config|
 
-  config.vm.define "uteenaS" do |control|
+  config.vm.define "uteenaS" do |server|
 
-    control.vm.box = "ubuntu/focal64"
-    control.vm.hostname = "uteenaS"
-    control.vm.network "private_network", ip: "192.168.56.110"
+    server.vm.box = "generic/alpine318"
+    server.vm.hostname = "uteenaS"
+    server.vm.network "private_network", ip: "192.168.56.110"
+    server.vm.provision "shell", inline: <<-SHELL
+      sudo apk update
+      sudo apk add curl
+      curl -sfL https://get.k3s.io | sh -
+    SHELL
 
-    control.vm.provider "virtualbox" do |vb|
-      vb.memory = 1024
-      vb.cpus = 2
+    server.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+      vb.cpus = 1
     end
 
   end
 
-  config.vm.define "uteenaSW" do |agent|
+  config.vm.define "uteenaSW" do |worker|
 
-    agent.vm.box = "ubuntu/focal64"
-    agent.vm.hostname = "uteenaSW"
-    agent.vm.network "private_network", ip: "192.168.56.111"
+    worker.vm.box = "generic/alpine318"
+    worker.vm.hostname = "uteenaSW"
+    worker.vm.network "private_network", ip: "192.168.56.111"
+    # worker.vm.provision "shell", inline: <<-SHELL
+    #   sudo apk update
+    #   sudo apk add curl
+    #
+    #   CONTROLLER_IP="192.168.56.110"
+    #   TOKEN=$(ssh -o StrictHostKeyChecking=no -i /vagrant/id_rsa vagrant@${CONTROLLER_IP} sudo cat /var/lib/rancher/k3s/server/node-token)
+    #
+    #   curl -sfL https://get.k3s.io | K3S_URL=https://${CONTROLLER_IP}:6443 K3S_TOKEN=${TOKEN} sh -
+    #   sudo apk add kubectl
+    # SHELL
 
-    agent.vm.provider "virtualbox" do |vb|
-      vb.memory = 1024
-      vb.cpus = 2
+    worker.vm.provider "virtualbox" do |vb|
+      vb.memory = "512"
+      vb.cpus = 1
     end
 
   end
+
+  config.ssh.insert_key = false
 
 end
