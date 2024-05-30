@@ -1,0 +1,32 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.define "uteenaS" do |control|
+
+    control.vm.box = "ubuntu/focal64"
+    control.vm.hostname = "uteenaS"
+    control.vm.network "private_network", ip: "192.168.56.110"
+
+    control.vm.provider "virtualbox" do |vb|
+      vb.memory = 1024
+      vb.cpus = 2
+    end
+
+  end
+
+  config.vm.define "uteenaSW" do |agent|
+
+    agent.vm.box = "ubuntu/focal64"
+    agent.vm.hostname = "uteenaSW"
+    agent.vm.network "private_network", ip: "192.168.56.111"
+
+    agent.vm.provider "virtualbox" do |vb|
+      vb.memory = 1024
+      vb.cpus = 2
+    end
+
+  end
+
+end
