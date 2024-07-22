@@ -3,7 +3,6 @@
 sudo apk update
 sudo apk add curl
 curl -sfL https://get.k3s.io | sh -
-sleep 3
 
 check_kubectl() {
     for i in {1..30}; do
