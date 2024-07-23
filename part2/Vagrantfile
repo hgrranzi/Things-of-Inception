@@ -2,15 +2,19 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
- 
-  config.vm.hostname = "uteenaS"
-  config.vm.box = "generic/alpine318"
-  config.ssh.insert_key = false
 
-  config.vm.network "private_network", ip: "192.168.56.11", auto_config: true, adapter: 2
-  config.vm.synced_folder ".", "/shared"
-  config.vm.provision :shell, path: "bootstrap.sh"
-  
-  config.vm.network "forwarded_port", guest: 80, host: 80
+  config.vm.define "uteenaS" do |server|
+    server.vm.hostname = "uteenaS"
+    server.vm.box = "generic/alpine318"
+    server.ssh.insert_key = false
+
+    server.vm.network "private_network", ip: "192.168.56.10", auto_config: true, adapter: 2
+    server.vm.synced_folder ".", "/shared"
+    server.vm.provision :shell, path: "bootstrap.sh"
+
+    server.vm.network "forwarded_port", guest: 80, host: 80
+
+  end
 
 end
+
