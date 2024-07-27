@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://gitlab.com/nanuchi/argocd-app-config.git #todo: change with our repo
+    repoURL: https://github.com/mateuscgoncalves/Iot
     targetRevision: HEAD
     path: dev
   destination:
