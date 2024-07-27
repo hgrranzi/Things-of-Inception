@@ -1,0 +1,15 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# This is only for fast VM setup (will be deleted later)
+
+Vagrant.configure("2") do |config|
+
+  config.vm.define "testVM" do |server|
+    server.vm.hostname = "testVM"
+    server.vm.box = "bento/ubuntu-20.04"
+    server.vm.synced_folder "scripts", "/shared", type: "rsync", rsync__auto: true
+
+  end
+
+end
