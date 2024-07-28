@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/mateuscgoncalves/Iot
+    repoURL: https://github.com/mateuscgoncalves/Iot.git
     targetRevision: HEAD
     path: dev
   destination:

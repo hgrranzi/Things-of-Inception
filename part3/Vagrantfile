@@ -9,6 +9,10 @@ Vagrant.configure("2") do |config|
     server.vm.hostname = "testVM"
     server.vm.box = "bento/ubuntu-20.04"
     server.vm.synced_folder ".", "/shared", type: "rsync", rsync__auto: true,  rsync__exclude: ['Vagrantfile', './.vagrant']
+    server.ssh.insert_key = false
+
+    server.vm.network "forwarded_port", guest: 8080, host: 8080
+    server.vm.network "forwarded_port", guest: 8888, host: 8888
 
   end
 
