@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -6,7 +7,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/mateuscgoncalves/Iot.git
+    repoURL: https://github.com/hgrranzi/Things-of-Inception.git #tmp
     targetRevision: HEAD
     path: dev
   destination:
