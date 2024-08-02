@@ -14,5 +14,5 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 # install k3d
 sudo curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
 
-#create cluster
-sudo k3d cluster create mycluster
+#create cluster with port forwarding from docker to localhost
+sudo k3d cluster create mycluster -p "8080:30007@server:0" -p "8888:30008@server:0"
