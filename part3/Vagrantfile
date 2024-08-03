@@ -8,11 +8,18 @@ Vagrant.configure("2") do |config|
   config.vm.define "testVM" do |server|
     server.vm.hostname = "testVM"
     server.vm.box = "bento/ubuntu-20.04"
-    server.vm.synced_folder ".", "/shared", type: "rsync", rsync__auto: true,  rsync__exclude: ['Vagrantfile', './.vagrant']
+    server.vm.synced_folder ".", "/shared/part3", type: "rsync", rsync__auto: true,  rsync__exclude: ['Vagrantfile', './.vagrant']
+    server.vm.synced_folder "../part4", "/shared/part4", type: "rsync", rsync__auto: true
     server.ssh.insert_key = false
+
+    server.vm.provider "virtualbox" do |vb|
+        vb.memory = "12288"
+        vb.cpus = 8
+    end
 
     server.vm.network "forwarded_port", guest: 8080, host: 8080, protocol: "tcp"
     server.vm.network "forwarded_port", guest: 8888, host: 8888, protocol: "tcp"
+    server.vm.network "forwarded_port", guest: 8081, host: 8081, protocol: "tcp"
 
   end
 
