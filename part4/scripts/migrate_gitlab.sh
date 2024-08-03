@@ -22,8 +22,12 @@ sudo helm install gitlab gitlab/gitlab \
 # waiting for gitlab to be ready
 sudo kubectl wait --for=condition=available deployment/gitlab-webservice-default -n gitlab
 
+#todo:
+
 # forward gitlab ports or apply service
 
-# clone repo from github
+# clone repo from github or create it
 
 # apply new yaml for ArgoCD
+
+# get gitlab password
