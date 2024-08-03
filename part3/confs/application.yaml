@@ -1,0 +1,19 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-application
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/hgrranzi/Things-of-Inception.git #tmp
+    targetRevision: part3_mv #tmp
+    path: dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
