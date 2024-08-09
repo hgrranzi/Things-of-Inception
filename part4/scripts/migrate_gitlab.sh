@@ -20,14 +20,15 @@ sudo helm install gitlab gitlab/gitlab \
   --debug
 
 # waiting for gitlab to be ready
-sudo kubectl wait --for=condition=available deployment/gitlab-webservice-default -n gitlab
+sudo kubectl wait --for=condition=available --timeout=1800s deployment/gitlab-webservice-default -n gitlab
 
-#todo:
+# forward gitlab ports or apply service (could be cleaner)
+sudo kubectl port-forward svc/gitlab-webservice-default -n gitlab 8181:8181 --address="0.0.0.0" >/dev/null 2>&1 &
 
-# forward gitlab ports or apply service
+# todo: clone repo from github or create it
 
-# clone repo from github or create it
-
-# apply new yaml for ArgoCD
+# todo: apply new yaml for ArgoCD
 
 # get gitlab password
+echo "Here it is:"
+sudo kubectl get secret gitlab-gitlab-initial-root-password -ojsonpath='{.data.password}' -n gitlab | base64 --decode ; echo
