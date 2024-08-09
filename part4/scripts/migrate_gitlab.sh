@@ -9,14 +9,11 @@ sudo kubectl create namespace gitlab
 sudo helm repo add gitlab https://charts.gitlab.io
 sudo helm repo update
 
-sudo helm install gitlab gitlab/gitlab \
+sudo helm upgrade --install gitlab gitlab/gitlab \
   --timeout 900s \
   --namespace gitlab \
   --version 7.2.0 \
-  --set global.hosts.domain=local.com \
-  --set certmanager-issuer.email=iot@example.com \
-  --set global.hosts.https="false" \
-  --set gitlab-runner.install="false" \
+  -f ../confs/gitlab-values.yaml \
   --debug
 
 # waiting for gitlab to be ready

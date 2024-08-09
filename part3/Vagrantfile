@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
     server.ssh.insert_key = false
 
     server.vm.provider "virtualbox" do |vb|
-        vb.memory = "12288"
+        vb.memory = "8192"
         vb.cpus = 8
     end
 
