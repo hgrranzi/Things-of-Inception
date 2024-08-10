@@ -8,7 +8,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/hgrranzi/Things-of-Inception.git #tmp
-    targetRevision: part3_mv #tmp
+    targetRevision: HEAD
     path: dev
   destination:
     server: https://kubernetes.default.svc
