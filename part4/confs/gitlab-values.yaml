@@ -1,0 +1,31 @@
+global:
+  ingress:
+    configureCertmanager: false
+  hosts:
+    https: false
+    domain: local.com
+
+certmanager:
+  install: false
+nginx-ingress:
+  enabled: false
+prometheus:
+  install: false
+gitlab-runner:
+  install: false
+
+gitlab:
+  webservice:
+    minReplicas: 1
+    maxReplicas: 1
+  sidekiq:
+    minReplicas: 1
+    maxReplicas: 1
+  gitlab-shell:
+    minReplicas: 1
+    maxReplicas: 1
+
+registry:
+  hpa:
+    minReplicas: 1
+    maxReplicas: 1
