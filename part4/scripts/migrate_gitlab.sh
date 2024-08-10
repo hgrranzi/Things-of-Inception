@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # check if an argument is given
 if [ -z "$1" ]; then
   echo "Error: No repository name provided."
@@ -30,7 +32,7 @@ sudo git push
 
 # update the yaml file with the actual repo name todo: debug, sometimes not such path
 APP_YAML="../confs/application.yaml"
-sudo sed -i "s|https://github.com/hgrranzi/Things-of-Inception.git|https://local.gitlab.com/${REPO_NAME}.git|g" "$APP_YAML"
+sudo sed -i '/repoURL:/!b;n;s|.*|repoURL: http://local.gitlab.com/'"${REPO_NAME}"'.git|g' "${APP_YAML}"
 
 # apply new yaml for ArgoCD
-sudo kubectl apply -f ../confs/application.yaml
+sudo kubectl apply -f "${APP_YAML}"
