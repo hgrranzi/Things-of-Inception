@@ -33,7 +33,9 @@ sudo git add .
 sudo git commit -m "migrated"
 sudo git push
 
-# update the yaml file with the actual repo name todo: debug, sed does not find the path
+cd ..
+
+# update the yaml file with the actual repo name
 sudo sed -i "s|http://[^ ]*.git|http://gitlab-webservice-default.gitlab:8181/root/${REPO_NAME}.git|" ../confs/application.yaml
 
 # apply new yaml for ArgoCD todo: debug, does not find path
