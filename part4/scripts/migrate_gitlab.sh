@@ -1,31 +1,36 @@
-# install helm
-sudo curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-sudo bash get_helm.sh
+# check if an argument is given
+if [ -z "$1" ]; then
+  echo "Error: No repository name provided."
+  echo "Usage: $0 <REPO_NAME>"
+  exit 1
+fi
 
-# create namespace gitlab
-sudo kubectl create namespace gitlab
+REPO_NAME=$1
 
-# install gitlab with helm
-sudo helm repo add gitlab https://charts.gitlab.io
-sudo helm repo update
+# clone destination (fresh created) repo
+if ! sudo git clone http://gitlab.local.com/root/${REPO_NAME}.git; then
+  echo "Error: There is no repo with the name ${REPO_NAME} in GitLab, please provide an existing repo name"
+  exit 1
+fi
 
-sudo helm upgrade --install gitlab gitlab/gitlab \
-  --timeout 900s \
-  --namespace gitlab \
-  --version 7.2.0 \
-  -f ../confs/gitlab-values.yaml \
-  --debug
+# clone source repo
+sudo git clone https://github.com/hgrranzi/Things-of-Inception.git
+sudo mv Things-of-Inception/dev ${REPO_NAME}/
+sudo rm -rf Things-of-Inception
 
-# waiting for gitlab to be ready
-sudo kubectl wait --for=condition=available --timeout=1800s deployment/gitlab-webservice-default -n gitlab
+cd "${REPO_NAME}" || {
+  echo "Error: Failed to navigate to the repository directory ${REPO_NAME}"
+  exit 1
+}
 
-# forward gitlab ports or apply service (could be cleaner)
-sudo kubectl port-forward svc/gitlab-webservice-default -n gitlab 8181:8181 --address="0.0.0.0" >/dev/null 2>&1 &
 
-# todo: clone repo from github or create it
+sudo git add .
+sudo git commit -m "migrated"
+sudo git push
 
-# todo: apply new yaml for ArgoCD
+# update the yaml file with the actual repo name
+APP_YAML="../confs/application.yaml"
+sudo sed -i "s|https://github.com/hgrranzi/Things-of-Inception.git|https://local.gitlab.com/${REPO_NAME}.git|g" "$APP_YAML"
 
-# get gitlab password
-echo "Here it is:"
-sudo kubectl get secret gitlab-gitlab-initial-root-password -ojsonpath='{.data.password}' -n gitlab | base64 --decode ; echo
+# apply new yaml for ArgoCD
+sudo kubectl apply -f ../confs/application.yaml

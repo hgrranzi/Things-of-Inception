@@ -3,6 +3,7 @@ global:
     configureCertmanager: false
   hosts:
     https: false
+    domain: local.com
 
 certmanager:
   install: false
