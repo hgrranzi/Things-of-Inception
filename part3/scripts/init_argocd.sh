@@ -13,7 +13,7 @@ sudo kubectl wait --for=condition=available --timeout=420s deployment/argocd-ser
 # apply node port service for ArgoCD port forwarding
 sudo kubectl apply -f ../confs/argocd-service.yaml
 
-# apply application deployment
+# apply application deployment todo: debug, sometimes app pods not created
 sudo kubectl apply -f ../confs/application.yaml
 
 # get ArgoCD password

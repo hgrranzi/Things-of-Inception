@@ -28,7 +28,7 @@ sudo git add .
 sudo git commit -m "migrated"
 sudo git push
 
-# update the yaml file with the actual repo name
+# update the yaml file with the actual repo name todo: debug, sometimes not such path
 APP_YAML="../confs/application.yaml"
 sudo sed -i "s|https://github.com/hgrranzi/Things-of-Inception.git|https://local.gitlab.com/${REPO_NAME}.git|g" "$APP_YAML"
 
