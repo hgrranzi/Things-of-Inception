@@ -30,8 +30,11 @@ sudo git add .
 sudo git commit -m "migrated"
 sudo git push
 
-# update the yaml file with the actual repo name todo: debug, sed does not find the path
-sudo sed -i "s|http://[^ ]*.git|http://local.gitlab.com/${REPO_NAME}.git|" ../confs/application.yaml
+# update the yaml file with the actual repo name
+# todo: debug, sed does not find the path
+# todo: adjust repo url
+sudo sed -i "s|http://[^ ]*.git|http://gitlab-webservice-default.gitlab.svc:8181/root/${REPO_NAME}.git|" ../confs/application.yaml
+# sudo sed -i "s|http://[^ ]*.git|http://local.gitlab.com/root/${REPO_NAME}.git|" ../confs/application.yaml
 
 # apply new yaml for ArgoCD
 sudo kubectl apply -f ../confs/application.yaml
