@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 # check if an argument is given
 if [ -z "$1" ]; then
   echo "Error: No repository name provided."
@@ -8,6 +10,8 @@ if [ -z "$1" ]; then
 fi
 
 REPO_NAME=$1
+
+sudo rm -rf "${REPO_NAME}"
 
 # clone destination (fresh created) repo
 if ! sudo git clone http://gitlab.local.com/root/${REPO_NAME}.git; then
@@ -25,16 +29,12 @@ cd "${REPO_NAME}" || {
   exit 1
 }
 
-
 sudo git add .
 sudo git commit -m "migrated"
 sudo git push
 
-# update the yaml file with the actual repo name
-# todo: debug, sed does not find the path
-# todo: adjust repo url
-sudo sed -i "s|http://[^ ]*.git|http://gitlab-webservice-default.gitlab.svc:8181/root/${REPO_NAME}.git|" ../confs/application.yaml
-# sudo sed -i "s|http://[^ ]*.git|http://local.gitlab.com/root/${REPO_NAME}.git|" ../confs/application.yaml
+# update the yaml file with the actual repo name todo: debug, sed does not find the path
+sudo sed -i "s|http://[^ ]*.git|http://gitlab-webservice-default.gitlab:8181/root/${REPO_NAME}.git|" ../confs/application.yaml
 
-# apply new yaml for ArgoCD
+# apply new yaml for ArgoCD todo: debug, does not find path
 sudo kubectl apply -f ../confs/application.yaml

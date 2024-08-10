@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 # create namespaces
 sudo kubectl create namespace argocd
 sudo kubectl create namespace dev
@@ -13,7 +15,7 @@ sudo kubectl wait --for=condition=available --timeout=420s deployment/argocd-ser
 # apply node port service for ArgoCD port forwarding
 sudo kubectl apply -f ../confs/argocd-service.yaml
 
-# apply application deployment todo: debug, sometimes app pods not created
+# apply application deployment todo: debug, sometimes app pods not created (does not find path?)
 sudo kubectl apply -f ../confs/application.yaml
 
 # get ArgoCD password
