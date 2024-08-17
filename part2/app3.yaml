@@ -23,7 +23,7 @@ spec:
       volumes:
       - name: app3-static
         hostPath:
-          path: /shared/static
+          path: /shared/static/app3
 
 ---
 

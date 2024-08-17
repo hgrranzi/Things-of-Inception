@@ -14,9 +14,16 @@ spec:
     spec:
       containers:
       - name: app1
-        image: tutum/hello-world
+        image: nginx:alpine
         ports:
         - containerPort: 80
+        volumeMounts:
+          - name: app1-static
+            mountPath: /usr/share/nginx/html
+      volumes:
+      - name: app1-static
+        hostPath:
+          path: /shared/static/app1
 
 ---
 
