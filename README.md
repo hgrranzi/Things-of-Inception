@@ -5,7 +5,7 @@ Using K3d, K3s and ArgoCD with Vagrant
 
 ## Status
 
-IN PROGRESS
+COMPLETED
 
 ## Description
 
@@ -66,13 +66,13 @@ We set up a local GitLab instance within the cluster and integrate it with the c
 - The GitLab installation is done with Helm
 
 To run:
-Ensure Part 3 is fully installed and configured, then:
+1. Ensure Part 3 is fully installed and configured, then:
 ```
 vagrant ssh testVM
 cd /shared/part4/scripts
 sh install_gitlab.sh
 ```
-Manually create a new repository in the installed local GitLab instance, then:
+2. Manually create a new repository in the installed local GitLab instance, then:
 ```
 vagrant ssh testVM
 cd /shared/part4/scripts
