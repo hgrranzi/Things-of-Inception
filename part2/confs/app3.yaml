@@ -13,20 +13,19 @@ spec:
         app: app3
     spec:
       containers:
-      - name: app3
-        image: nginx:alpine
-        ports:
-        - containerPort: 80
-        volumeMounts:
-          - name: app3-static
-            mountPath: /usr/share/nginx/html
+        - name: app3
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: app3-static
+              mountPath: /usr/share/nginx/html
       volumes:
-      - name: app3-static
-        hostPath:
-          path: /shared/static
+        - name: app3-static
+          hostPath:
+            path: /shared/static
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:

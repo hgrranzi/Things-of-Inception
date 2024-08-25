@@ -20,8 +20,7 @@ check_kubectl() {
 # Check kubectl
 check_kubectl
 
-sudo kubectl apply -f /shared/app1.yaml
-sudo kubectl apply -f /shared/app2.yaml
-sudo kubectl apply -f /shared/app3.yaml
-sudo kubectl apply -f /shared/ingress.yaml
-
+sudo kubectl apply -f /shared/confs/app1.yaml
+sudo kubectl apply -f /shared/confs/app2.yaml
+sudo kubectl apply -f /shared/confs/app3.yaml
+sudo kubectl apply -f /shared/confs/ingress.yaml
