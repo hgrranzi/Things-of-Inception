@@ -12,13 +12,13 @@ IN PROGRESS
 This project is focused on getting started with Kubernetes using K3s and K3d, deploying minimal Kubernetes clusters with Vagrant, and managing applications using Argo CD for continuous deployment.
 The project consists of 4 parts, each progressively introducing new tools and technique.
 
-### [Part 1: K3s and Vagrant] (./part1)
+### Part 1: [K3s and Vagrant](./part1)
 
 In this part, we set up a minimal K3s cluster using Vagrant. The setup consists of two virtual machines:
 - **Server (controller)**: The main machine running K3s in controller mode.
 - **ServerWorker (agent)**: The second machine running K3s in agent mode.
 
-### [Part 2: K3s and Three Simple Applications] (./part2)
+### [Part 2: K3s and Three Simple Applications](./part2)
 
 In this part, we deploy three simple web applications on the K3s cluster:
 - Each app is accessible based on the host used during the request.
